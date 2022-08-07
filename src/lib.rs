@@ -25,6 +25,8 @@ use std::num::NonZeroUsize;
 use std::ops::{CoerceUnsized, DispatchFromDyn};
 use std::ptr::NonNull;
 
+pub mod additional;
+
 pub type NonNullMut<T> = NonNull<T>;
 
 #[repr(transparent)]
