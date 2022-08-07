@@ -55,7 +55,7 @@ impl<T: Sized> NonNullConst<T> {
     /// # Examples
     ///
     /// ```
-    /// use better_nonnull::NonNullConst;
+    /// use nonnull_const::NonNullConst;
     ///
     /// let ptr = NonNullConst::<u32>::dangling();
     /// // Important: don't try to access the value of `ptr` without
@@ -108,7 +108,7 @@ impl<T: ?Sized> NonNullConst<T> {
     /// # Examples
     ///
     /// ```
-    /// use better_nonnull::NonNullConst;
+    /// use nonnull_const::NonNullConst;
     ///
     /// let mut x = 0u32;
     /// let ptr = unsafe { NonNullConst::new_unchecked(&mut x as *const _) };
@@ -117,7 +117,7 @@ impl<T: ?Sized> NonNullConst<T> {
     /// *Incorrect* usage of this function:
     ///
     /// ```rust,no_run
-    /// use better_nonnull::NonNullConst;
+    /// use nonnull_const::NonNullConst;
     ///
     /// // NEVER DO THAT!!! This is undefined behavior. ⚠️
     /// let ptr = unsafe { NonNullConst::<u32>::new_unchecked(std::ptr::null()) };
@@ -132,7 +132,7 @@ impl<T: ?Sized> NonNullConst<T> {
     /// # Examples
     ///
     /// ```
-    /// use better_nonnull::NonNullConst;
+    /// use nonnull_const::NonNullConst;
     ///
     /// let mut x = 0u32;
     /// let ptr = NonNullConst::<u32>::new(&mut x as *mut _).expect("ptr is null!");
@@ -221,7 +221,7 @@ impl<T: ?Sized> NonNullConst<T> {
     /// # Examples
     ///
     /// ```
-    /// use better_nonnull::NonNullConst;
+    /// use nonnull_const::NonNullConst;
     ///
     /// let mut x = 2u32;
     /// let ptr = NonNullConst::new(&mut x).expect("ptr is null!");
@@ -265,7 +265,7 @@ impl<T: ?Sized> NonNullConst<T> {
     /// # Examples
     ///
     /// ```
-    /// use better_nonnull::NonNullConst;
+    /// use nonnull_const::NonNullConst;
     ///
     /// let mut x = 0u32;
     /// let ptr = NonNullConst::new(&mut x as *mut _).expect("ptr is null!");
@@ -286,7 +286,7 @@ impl<T: ?Sized> NonNullConst<T> {
     /// # Examples
     ///
     /// ```
-    /// use better_nonnull::NonNullConst;
+    /// use nonnull_const::NonNullConst;
     ///
     /// let mut x = 0u32;
     /// let ptr = NonNullConst::new(&mut x as *mut _).expect("null pointer");
@@ -315,7 +315,7 @@ impl<T> NonNullConst<[T]> {
     /// ```rust
     /// #![feature(nonnull_slice_from_raw_parts)]
     ///
-    /// use better_nonnull::NonNullConst;
+    /// use nonnull_const::NonNullConst;
     ///
     /// // create a slice pointer when starting out with a pointer to the first element
     /// let mut x = [5, 6, 7];
@@ -343,7 +343,7 @@ impl<T> NonNullConst<[T]> {
     ///
     /// ```rust
     /// #![feature(nonnull_slice_from_raw_parts)]
-    /// use better_nonnull::NonNullConst;
+    /// use nonnull_const::NonNullConst;
     ///
     /// let slice: NonNullConst<[i8]> = NonNullConst::slice_from_raw_parts(NonNullConst::dangling(), 3);
     /// assert_eq!(slice.len(), 3);
@@ -360,7 +360,7 @@ impl<T> NonNullConst<[T]> {
     ///
     /// ```rust
     /// #![feature(slice_ptr_get, nonnull_slice_from_raw_parts)]
-    /// use better_nonnull::NonNullConst;
+    /// use nonnull_const::NonNullConst;
     ///
     /// let slice: NonNullConst<[i8]> = NonNullConst::slice_from_raw_parts(NonNullConst::dangling(), 3);
     /// assert_eq!(slice.as_non_null_ptr(), NonNullConst::<i8>::dangling());
