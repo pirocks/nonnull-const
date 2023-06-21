@@ -5,17 +5,14 @@
 #![feature(coerce_unsized)]
 #![feature(slice_ptr_get)]
 #![feature(ptr_as_uninit)]
-#![feature(nonnull_slice_from_raw_parts)]
 #![feature(strict_provenance)]
 #![feature(ptr_metadata)]
-#![feature(const_convert)]
 #![feature(const_mut_refs)]
-#![feature(const_clone)]
 #![feature(const_ptr_as_ref)]
-#![feature(const_nonnull_slice_from_raw_parts)]
 #![feature(const_ptr_is_null)]
 #![feature(const_try)]
 #![feature(const_nonnull_new)]
+#![feature(const_slice_from_raw_parts_mut)]
 
 use std::{fmt, hash};
 use std::cmp::Ordering;
@@ -144,7 +141,7 @@ impl<T: ?Sized> NonNullConst<T> {
     /// }
     /// ```
     #[inline]
-    pub const fn new(ptr: *const T) -> Option<Self> {
+    pub fn new(ptr: *const T) -> Option<Self> {
         Some(NonNullConst { inner: NonNull::new(ptr as *mut T)? })
     }
 
@@ -418,7 +415,7 @@ impl<T> NonNullConst<[T]> {
     }
 }
 
-impl<T: ?Sized> const Clone for NonNullConst<T> {
+impl<T: ?Sized> Clone for NonNullConst<T> {
     #[inline]
     fn clone(&self) -> Self {
         NonNullConst { inner: self.inner.clone() }
@@ -473,7 +470,7 @@ impl<T: ?Sized> hash::Hash for NonNullConst<T> {
     }
 }
 
-impl<T: ?Sized> const From<&mut T> for NonNullConst<T> {
+impl<T: ?Sized> From<&mut T> for NonNullConst<T> {
     /// Converts a `&mut T` to a `NonNullConst<T>`.
     ///
     /// This conversion is safe and infallible since references cannot be null.
@@ -483,7 +480,7 @@ impl<T: ?Sized> const From<&mut T> for NonNullConst<T> {
     }
 }
 
-impl<T: ?Sized> const From<&T> for NonNullConst<T> {
+impl<T: ?Sized> From<&T> for NonNullConst<T> {
     /// Converts a `&T` to a `NonNullConst<T>`.
     ///
     /// This conversion is safe and infallible since references cannot be null.
